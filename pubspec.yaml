@@ -21,6 +21,8 @@ flutter:
   assets:
      - assets/whatsappicons.png
      - assets/metalogo.png
+     - assets/welcomelogo.jpg
+
   # fonts:
   #   - family: Schyler
   #     fonts:
