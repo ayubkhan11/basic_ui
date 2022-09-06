@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone/login_page.dart';
 import 'package:whatsapp_clone/splash.dart';
 
 class WelcomeScreen extends StatelessWidget{
@@ -20,25 +21,29 @@ class WelcomeScreen extends StatelessWidget{
          Image.asset("assets/welcomelogo.jpg"),
 
         Column(
-            children:[SizedBox(
+            children:[const SizedBox(
               height: 50 ,
               width: 300,
-              child:const Text("Read our Privacy Policy.Tap Agree and Continue to"
+              child: Text("Read our Privacy Policy.Tap Agree and Continue to"
                   " accept the Terms of Service"),
              ),
               SizedBox(
                 height: 50,
                   width: 300,
-                  child:ElevatedButton(onPressed:(){
-                //   Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) =>  SplashScreen()),
-                // );
+                  child:TextButton(onPressed:(){
+                   Navigator.push(
+                   context,
+                   MaterialPageRoute(builder: (context) =>  LoginScreen()),
+                 );
               } ,
-                child:Text("AGREE AND CONTINUE"),)
+             style: TextButton.styleFrom(
+             primary: Colors.white,
+             backgroundColor: Colors.green,
+             ),
+                child:const Text("AGREE AND CONTINUE"))
 
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
             ]
 
