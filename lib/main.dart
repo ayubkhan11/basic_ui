@@ -5,7 +5,21 @@ void main() {
   runApp(MaterialApp(
       home: SplashScreen(),
   debugShowCheckedModeBanner: false,
-  theme: ThemeData(primaryColor: Colors.green, primaryColorDark: Colors.green, canvasColor: Colors.green, scaffoldBackgroundColor: Colors.white )));
+
+  theme: ThemeData(primaryColor: Colors.green, primaryColorDark: Colors.green, canvasColor: Colors.green, scaffoldBackgroundColor: Colors.white,
+      inputDecorationTheme: new InputDecorationTheme(
+
+          labelStyle: new TextStyle(color: Colors.green),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.green)),
+
+        focusedBorder: UnderlineInputBorder(
+
+          borderSide: BorderSide(color: Colors.green),
+          //  when the TextFormField in focused
+        ),
+      ),
+      textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.green))));
 
 }
 

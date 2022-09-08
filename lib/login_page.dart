@@ -14,8 +14,8 @@ class LoginScreenState extends State<LoginScreen>{
     return Material(
       child: SafeArea(
         child: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          body:
+          Column(crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
@@ -46,7 +46,7 @@ class LoginScreenState extends State<LoginScreen>{
                           "what's my number?"),
                     ),
                     Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 50,vertical: 10),
                         child:TextField(
                           controller: countrynameController,
                           readOnly: true,
@@ -56,48 +56,51 @@ class LoginScreenState extends State<LoginScreen>{
                             if(code != null){
                               setState(() {
                                 countrynameController..text  = code.name;
+                                countrycodeController..text  = code.dialCode;
                               });
                             }
                           },
-                          decoration: InputDecoration(enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green)),
+                          decoration: InputDecoration(
 
                               labelText: 'Country'),
                         )
                     ),
-                    Row(children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 50),
+                      child: Row(children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                            width: 70,
+                            child:Flexible(child:   TextField(
+                              readOnly: true,
+                              controller: countrycodeController,
+                            ),
+                            )
+                        ),
+                        Expanded(child: Container()),
+                        Flexible(child:TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Phone',  ),
+                        ),
+                        ),
 
-                    Flexible(child:   TextField(
-                      controller: countrycodeController,
-                      onTap: () async {
-                        final code = await countryPicker.showPicker(context: context);
-                        if(code != null) {
-                          setState(() {
-                            countrycodeController..text = code.dialCode;
-                          }
-                          );
-                        }
-                      },
-                      decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green))
+                      ],
                       ),
-                    ),
-                      ),
-                    Flexible(child:   TextField(
-                      decoration: InputDecoration(
-                          labelText: 'Phone',  enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green))),
-
-                    ),
-                      ),
-
-                    ],
-                    ),
-                  ]
-
+                    ),]
               ),
-
+              Column(
+                  children:[
+                    SizedBox(
+                      width: 100,
+                      child: TextButton(
+                        onPressed: (){},
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.green,
+                        ),child: Text("NEXT"),),
+                    )
+                    ]
+              )
 
             ],
           ),
