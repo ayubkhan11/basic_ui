@@ -13,17 +13,18 @@ dependencies:
 
 dev_dependencies:
   fl_country_code_picker: ^0.0.1
-
   flutter_test:
     sdk: flutter
   country_picker: ^2.0.16
   flutter_lints: ^2.0.0
-fl_country_code_picker: ^0.0.1
+  intl: ^0.17.0
+
 flutter:
   uses-material-design: true
   assets:
      - assets/whatsappicons.png
      - assets/metalogo.png
+     - assets/arc.jpg
      - assets/welcomelogo.jpg
 
   # fonts:
