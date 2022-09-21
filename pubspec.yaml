@@ -18,6 +18,13 @@ dev_dependencies:
   country_picker: ^2.0.16
   flutter_lints: ^2.0.0
   intl: ^0.17.0
+  flutter_contacts:
+  permission_handler: ^10.0.0
+  contacts_service: ^0.6.3
+  camera: ^0.9.4+19
+  firebase_auth: ^3.9.0
+  firebase_core: ^1.22.0
+
 
 flutter:
   uses-material-design: true
