@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
-import 'package:whatsapp_clone/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'home/Verification_page.dart';
+
 class LoginScreen extends StatefulWidget{
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   State createState() => LoginScreenState();
 }
@@ -11,6 +14,8 @@ class LoginScreenState extends State<LoginScreen>{
   final countryPicker = const FlCountryCodePicker();
   TextEditingController countrynameController = TextEditingController();
   TextEditingController countrycodeController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context){
     return Material(
@@ -26,10 +31,10 @@ class LoginScreenState extends State<LoginScreen>{
                       alignment:AlignmentDirectional.topEnd,
                       child:PopupMenuButton(icon: const Icon(Icons.more_vert,color: Colors.black), // add this line
                           itemBuilder: (_) => <PopupMenuItem<String>>[
-                            PopupMenuItem<String>(
-                                child: Container(
-                                    child:const Text(
-                                      "Report",)), value: 'report'),
+                            const PopupMenuItem<String>(
+                                value: 'report',
+                                child: Text(
+                                  "Report",)),
                           ],onSelected: (index) async {
                             switch (index) {
                               case 'report':
@@ -48,7 +53,7 @@ class LoginScreenState extends State<LoginScreen>{
                           "what's my number?"),
                     ),
                     Container(
-                        padding: EdgeInsets.symmetric(horizontal: 50,vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
                         child:TextField(
                           controller: countrynameController,
                           readOnly: true,
@@ -57,34 +62,35 @@ class LoginScreenState extends State<LoginScreen>{
 
                             if(code != null){
                               setState(() {
-                                countrynameController..text  = code.name;
-                                countrycodeController..text  = code.dialCode;
+                                countrynameController.text  = code.name;
+                                countrycodeController.text  = code.dialCode;
                               });
                             }
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
 
                               labelText: 'Country'),
                         )
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 50,vertical: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
 
                       child: Row(children: [
-                      
+
                         SizedBox(
                           width: 70,
                           child: TextField(
                             readOnly: true,
                             controller: countrycodeController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelText: '',  ),
                           ),
                         ),
                         Container(width: 20,),
-                        const Flexible(
+                        Flexible(
                           child:TextField(
-                            decoration: InputDecoration(
+                            controller: phoneController,
+                            decoration: const InputDecoration(
                               labelText: 'Phone',  ),
                           ),
                         )
@@ -99,9 +105,10 @@ class LoginScreenState extends State<LoginScreen>{
                       width: 100,
                       child: TextButton(
                         onPressed: ()async{
+                          print('${countrycodeController.text}${phoneController.text}');
                           FirebaseAuth auth = FirebaseAuth.instance;
                           await auth.verifyPhoneNumber(
-                            phoneNumber: '+91 9488518637',
+                            phoneNumber: '${countrycodeController.text}${phoneController.text}',
                             verificationCompleted: (PhoneAuthCredential credential) async {
 
                               await auth.signInWithCredential(credential);
@@ -116,19 +123,23 @@ class LoginScreenState extends State<LoginScreen>{
                             },
 
                             codeSent: (String verificationId, int? forceResendingToken) {
-
-                              print("code sent");
+                              final snackBar = SnackBar(
+                                content: const Text('OTP SEND!'),
+                                action: SnackBarAction(
+                                  label: 'X',
+                                  onPressed: () {// Some code to undo the change.
+                                  },),);ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             },
                           );
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) =>  HomeScreen()),
+                            MaterialPageRoute(builder: (context) =>   VerficationScreen()),
                           );
                         } ,
                         style: TextButton.styleFrom(
                           primary: Colors.white,
                           backgroundColor: Colors.green,
-                        ),child: Text("NEXT"),),
+                        ),child: const Text("NEXT"),),
                     )
                   ]
               )
